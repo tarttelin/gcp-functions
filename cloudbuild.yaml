@@ -1,0 +1,6 @@
+steps:
+  - name: 'gcr.io/cloud-builders/mvn'
+    args: ['clean', 'verify']
+    dir: '.'
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['functions', 'deploy', 'hello-function', '--http-trigger', '--runtime', 'java11', '--entry-point', 'com.pyruby.cloudfunc.HelloWorld']
