@@ -15,6 +15,7 @@ import com.google.common.util.concurrent.MoreExecutors;
 import com.google.gson.Gson;
 import com.google.protobuf.ByteString;
 import com.google.pubsub.v1.PubsubMessage;
+import com.google.pubsub.v1.TopicName;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -46,8 +47,9 @@ public class StreamFromBucket implements BackgroundFunction<GcsEvent> {
 
     private void registerSuccess(String filename) throws InterruptedException, IOException {
         Publisher publisher = null;
+        TopicName name = TopicName.of("sandpit-282515", "streaming-success-topic");
         try {
-            publisher = Publisher.newBuilder("streaming-success-topic").build();
+            publisher = Publisher.newBuilder(name).build();
             ByteString data = ByteString.copyFromUtf8(String.format("file: %s uploaded successfully", filename));
             PubsubMessage pubsubMessage = PubsubMessage.newBuilder().setData(data).build();
             ApiFuture<String> messageIdFuture = publisher.publish(pubsubMessage);
