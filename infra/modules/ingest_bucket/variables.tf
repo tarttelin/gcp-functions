@@ -1,0 +1,1 @@
+variable "destroy_buckets" {}
