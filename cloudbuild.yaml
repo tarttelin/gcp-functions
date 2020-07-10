@@ -3,7 +3,7 @@ steps:
     args: ['clean', 'verify']
     dir: '.'
   - id: 'tf init'
-    name: 'hashicorp/terraform:0.12.0'
+    name: 'hashicorp/terraform:0.12.28'
     entrypoint: 'sh'
     args:
       - '-c'
@@ -12,7 +12,7 @@ steps:
         terraform init
 
   - id: 'tf plan'
-    name: 'hashicorp/terraform:0.12.0'
+    name: 'hashicorp/terraform:0.12.28'
     entrypoint: 'sh'
     args:
       - '-c'
@@ -21,7 +21,7 @@ steps:
         terraform plan
 
   - id: 'tf apply'
-    name: 'hashicorp/terraform:0.12.0'
+    name: 'hashicorp/terraform:0.12.28'
     entrypoint: 'sh'
     args:
       - '-c'
