@@ -1,2 +1,2 @@
-{"id":  "123", "first_name":  "Chris", "last_name":  "Tarttelin", "dob":  "20/10/2000", "addresses": [{"status":  "primary", "address":  "here"}]}
-{"id":  "124", "first_name":  "Callum", "last_name":  "Tarttelin", "dob":  "21/12/2000", "addresses": [{"status":  "primary", "address":  "here"}]}
+{"id":  "123", "first_name":  "Chris", "last_name":  "Tarttelin", "dob":  "2000-10-20", "addresses": [{"status":  "primary", "address":  "here"}]}
+{"id":  "124", "first_name":  "Callum", "last_name":  "Tarttelin", "dob":  "2000-12-21", "addresses": [{"status":  "primary", "address":  "here"}]}

@@ -21,8 +21,9 @@ import com.google.pubsub.v1.TopicName;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
@@ -79,10 +80,11 @@ public class StreamFromBucket implements BackgroundFunction<GcsEvent> {
         }
     }
 
-    private Map<String, ?> convert(String entry) {
-        Map row = gson.fromJson(entry, Map.class);
+    public Map<String, ?> convert(String entry) {
+        Map<String, Object> row = gson.fromJson(entry, Map.class);
         if (row.containsKey("dob")) {
-            Date dob = Date.from(LocalDateTime.parse(row.get("dob").toString()).toInstant(ZoneOffset.UTC));
+            Date dob = Date.from(LocalDate.parse(row.get("dob").toString(), DateTimeFormatter.ISO_LOCAL_DATE)
+                    .atStartOfDay(ZoneId.of("UTC")).toInstant());
             row.put("dob", dob);
         }
         return row;
