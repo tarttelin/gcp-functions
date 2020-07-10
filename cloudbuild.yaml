@@ -8,7 +8,7 @@ steps:
     args:
       - '-c'
       - |
-        cd environments/dev
+        cd infra/environments/dev
         terraform init
 
   - id: 'tf plan'
@@ -17,7 +17,7 @@ steps:
     args:
       - '-c'
       - |
-        cd environments/dev
+        cd infra/environments/dev
         terraform plan
 
   - id: 'tf apply'
@@ -26,7 +26,7 @@ steps:
     args:
       - '-c'
       - |
-        cd environments/dev
+        cd infra/environments/dev
         terraform apply -auto-approve
   - name: 'gcr.io/cloud-builders/gcloud'
     args: ['functions', 'deploy', 'hello-function', '--trigger-http', '--runtime', 'java11', '--entry-point', 'com.pyruby.cloudfunc.HelloWorld']
