@@ -1,5 +1,5 @@
 steps:
-  - name: 'gcr.io/cloud-builders/mvn'
+  - name: 'gradle:6.5.1-jdk11'
     args: ['clean', 'verify']
     dir: '.'
   - id: 'tf init'
