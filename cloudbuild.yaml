@@ -1,6 +1,7 @@
 steps:
   - name: 'gradle:6.5.1-jdk11'
-    args: ['clean', 'verify']
+    entrypoint: gradle
+    args: ['clean', 'build']
     dir: '.'
   - id: 'tf init'
     name: 'hashicorp/terraform:0.12.28'
