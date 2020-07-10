@@ -82,11 +82,11 @@ public class StreamFromBucket implements BackgroundFunction<GcsEvent> {
 
     public Map<String, ?> convert(String entry) {
         Map<String, Object> row = gson.fromJson(entry, Map.class);
-        if (row.containsKey("dob")) {
-            Date dob = Date.from(LocalDate.parse(row.get("dob").toString(), DateTimeFormatter.ISO_LOCAL_DATE)
-                    .atStartOfDay(ZoneId.of("UTC")).toInstant());
-            row.put("dob", dob);
-        }
+//        if (row.containsKey("dob")) {
+//            Date dob = Date.from(LocalDate.parse(row.get("dob").toString(), DateTimeFormatter.ISO_LOCAL_DATE)
+//                    .atStartOfDay(ZoneId.of("UTC")).toInstant());
+//            row.put("dob", dob);
+//        }
         return row;
     }
 }
