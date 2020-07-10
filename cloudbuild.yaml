@@ -30,6 +30,8 @@ steps:
         cd infra/environments/dev
         terraform apply -auto-approve
   - name: 'gcr.io/cloud-builders/gcloud'
+    dir: './build/libs'
     args: ['functions', 'deploy', 'hello-function', '--trigger-http', '--runtime', 'java11', '--entry-point', 'com.pyruby.cloudfunc.HelloWorld']
   - name: 'gcr.io/cloud-builders/gcloud'
+    dir: './build/libs'
     args: ['functions', 'deploy', 'stream-function', '--trigger-bucket=inbound-feed-bucket', '--runtime', 'java11', '--entry-point', 'com.pyruby.cloudfunc.StreamFromBucket']
