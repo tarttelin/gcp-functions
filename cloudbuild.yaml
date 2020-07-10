@@ -1,7 +1,7 @@
 steps:
   - name: 'gradle:6.5.1-jdk11'
     entrypoint: gradle
-    args: ['clean', 'build']
+    args: ['clean', 'build', 'deployable']
     dir: '.'
   - id: 'tf init'
     name: 'hashicorp/terraform:0.12.28'
@@ -30,8 +30,8 @@ steps:
         cd infra/environments/dev
         terraform apply -auto-approve
   - name: 'gcr.io/cloud-builders/gcloud'
-    dir: './build/libs'
+    dir: './build/deployable'
     args: ['functions', 'deploy', 'hello-function', '--trigger-http', '--runtime', 'java11', '--entry-point', 'com.pyruby.cloudfunc.HelloWorld']
   - name: 'gcr.io/cloud-builders/gcloud'
-    dir: './build/libs'
+    dir: './build/deployable'
     args: ['functions', 'deploy', 'stream-function', '--trigger-bucket=inbound-feed-bucket', '--runtime', 'java11', '--entry-point', 'com.pyruby.cloudfunc.StreamFromBucket']

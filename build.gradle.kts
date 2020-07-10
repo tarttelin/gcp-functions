@@ -2,6 +2,7 @@ val invoker by configurations.creating
 
 plugins {
     java
+    id("com.github.johnrengelman.shadow") version "5.2.0"
 }
 
 java {
@@ -41,6 +42,19 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.15.0")
 
     invoker("com.google.cloud.functions.invoker:java-function-invoker:1.0.0-beta1")
+}
+
+tasks {
+    shadowJar {
+        dependsOn("build")
+    }
+}
+
+task<Copy>("deployable") {
+    from("build/libs") {
+        include("**/*all.jar")
+    }
+    into("build/deployable")
 }
 
 // Run a function with the syntax ./gradlew runFunction -PrunFunction.target=com.pyruby.cloudfunc.HelloWorld -PrunFunction.port=8000
