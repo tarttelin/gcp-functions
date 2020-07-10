@@ -6,6 +6,7 @@ import com.google.api.core.ApiFutures;
 import com.google.cloud.bigquery.BigQuery;
 import com.google.cloud.bigquery.BigQueryOptions;
 import com.google.cloud.bigquery.InsertAllRequest;
+import com.google.cloud.bigquery.InsertAllResponse;
 import com.google.cloud.bigquery.Table;
 import com.google.cloud.functions.BackgroundFunction;
 import com.google.cloud.functions.Context;
@@ -40,7 +41,12 @@ public class StreamFromBucket implements BackgroundFunction<GcsEvent> {
                     .map(this::convert)
                     .filter(Objects::nonNull)
                     .map(InsertAllRequest.RowToInsert::of);
-            table.insert(stream::iterator);
+            InsertAllResponse insert = table.insert(stream::iterator);
+            if (insert.hasErrors()) {
+                System.out.println("Error: " + gson.toJson(insert.getInsertErrors()));
+            } else {
+                System.out.println("Successfully wrote to bigquery");
+            }
         }
         registerSuccess(gcsEvent.getName());
     }
