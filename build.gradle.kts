@@ -47,6 +47,7 @@ dependencies {
 tasks {
     shadowJar {
         dependsOn("build")
+        mergeServiceFiles()
     }
 }
 
