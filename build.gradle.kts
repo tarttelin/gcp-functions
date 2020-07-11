@@ -51,6 +51,7 @@ tasks {
 }
 
 task<Copy>("deployable") {
+    dependsOn("shadowJar")
     from("build/libs") {
         include("**/*all.jar")
     }
