@@ -1,4 +1,4 @@
-val invoker by configurations.creating
+val invoker: Configuration by configurations.creating
 
 plugins {
     java
@@ -18,11 +18,6 @@ buildscript {
 
 repositories {
     mavenCentral()
-}
-
-
-dependencies {
-    implementation("com.google.cloud.functions:functions-framework-api:1.0.1")
 }
 
 dependencies {
