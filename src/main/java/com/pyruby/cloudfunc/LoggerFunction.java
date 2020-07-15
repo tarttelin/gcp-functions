@@ -21,6 +21,11 @@ public class LoggerFunction implements HttpFunction {
 
     @Override
     public void service(HttpRequest request, HttpResponse response) throws Exception {
+        Long total = request.getFirstQueryParameter("total").map(Long::valueOf).orElse(0L);
+        Long success = request.getFirstQueryParameter("success").map(Long::valueOf).orElse(0L);
+        Long error = request.getFirstQueryParameter("error").map(Long::valueOf).orElse(0L);
+        String metricLog = String.format("TRANSFORMATION_METRIC total=%s success=%s error=%s", total, success, error);
+        logger.info(metricLog);
         logger.info("I am an info log!");
         BufferedWriter writer = response.getWriter();
         writer.write("Hello World!");
