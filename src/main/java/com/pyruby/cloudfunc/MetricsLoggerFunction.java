@@ -7,15 +7,15 @@ import com.google.cloud.functions.HttpResponse;
 import java.io.BufferedWriter;
 import java.util.logging.Logger;
 
-public class LoggerFunction implements HttpFunction {
+public class MetricsLoggerFunction implements HttpFunction {
 
     private final Logger logger;
 
-    public LoggerFunction() {
-        this(Logger.getLogger(LoggerFunction.class.getName()));
+    public MetricsLoggerFunction() {
+        this(Logger.getLogger(MetricsLoggerFunction.class.getName()));
     }
 
-    public LoggerFunction(Logger logger) {
+    public MetricsLoggerFunction(Logger logger) {
         this.logger = logger;
     }
 

@@ -26,7 +26,7 @@ create a bucket for the terraform config to go in:
     
 ## Run locally
 
-    ./gradlew runFunction -PrunFunction.target=com.pyruby.cloudfunc.LoggerFunction -PrunFunction.port=8080
+    ./gradlew runFunction -PrunFunction.target=com.pyruby.cloudfunc.MetricsLoggerFunction -PrunFunction.port=8080
     
 ## gcloud deploy, list, describe and delete 
 
@@ -34,7 +34,7 @@ create a bucket for the terraform config to go in:
 
     ./gradlew clean deployable
     
-    gcloud functions deploy my-first-function --entry-point=com.pyruby.cloudfunc.LoggerFunction --runtime=java11 --trigger-http --memory=256MB --allow-unauthenticated --source=build/deployable
+    gcloud functions deploy my-first-function --entry-point=com.pyruby.cloudfunc.MetricsLoggerFunction --runtime=java11 --trigger-http --memory=256MB --allow-unauthenticated --source=build/deployable
     
 #### List
 

@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-class LoggerFunctionTest {
+class MetricsLoggerFunctionTest {
 
     @Test
     public void service_respondsHelloWorld_andLogsMessage() throws Exception {
@@ -28,7 +28,7 @@ class LoggerFunctionTest {
         Logger logger = mock(Logger.class);
         ArgumentCaptor<String> logsCaptor = ArgumentCaptor.forClass(String.class);
 
-        new LoggerFunction(logger).service(req, res);
+        new MetricsLoggerFunction(logger).service(req, res);
 
         writer.flush();
         assertThat(out.toString()).isEqualTo("Hello World!");
@@ -49,7 +49,7 @@ class LoggerFunctionTest {
         when(req.getFirstQueryParameter("error")).thenReturn(Optional.of("1"));
         Logger logger = mock(Logger.class);
 
-        new LoggerFunction(logger).service(req, res);
+        new MetricsLoggerFunction(logger).service(req, res);
         writer.flush();
 
         ArgumentCaptor<String> logsCaptor = ArgumentCaptor.forClass(String.class);
@@ -70,7 +70,7 @@ class LoggerFunctionTest {
         when(req.getFirstQueryParameter("error")).thenReturn(Optional.empty());
         Logger logger = mock(Logger.class);
 
-        new LoggerFunction(logger).service(req, res);
+        new MetricsLoggerFunction(logger).service(req, res);
         writer.flush();
 
         ArgumentCaptor<String> logsCaptor = ArgumentCaptor.forClass(String.class);
