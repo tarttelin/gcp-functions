@@ -1,6 +1,6 @@
 
 resource "google_storage_bucket" "ingest" {
-  name 		= "inbound-feed-bucket"
+  name 		= var.name
   location	= "EU"
   force_destroy = var.destroy_buckets
 }

@@ -1,19 +1,34 @@
 provider "google" {
   project = var.project
   version = "~> 3.29"
-  region  = "europe-west2"
-  zone    = "europe-west2-a"
+  region  = var.region
+  zone    = "${var.region}-a"
 }
 
-module "ingest_bucket" {
-  source = "../../modules/ingest_bucket"
+module "inbound_feed_bucket" {
+  source = "../../modules/storage_bucket"
   destroy_buckets = var.destroy_buckets
+  name = "inbound-feed-bucket"
+}
+
+module "error_bucket" {
+  source = "../../modules/storage_bucket"
+  destroy_buckets = var.destroy_buckets
+  name = "inbound-errors-bucket"
 }
 
 module "bigquery" {
   source = "../../modules/bigquery"
 }
 
-module "pubsub" {
+module "streaming_success_queue" {
   source = "../../modules/pubsub"
+  name = "streaming-success-topic"
+  region = var.region
+}
+
+module "streaming_error_queue" {
+  source = "../../modules/pubsub"
+  name = "streaming-errors-topic"
+  region = var.region
 }

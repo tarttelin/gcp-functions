@@ -1,4 +1,3 @@
-
 variable "project" {}
 variable "destroy_buckets" {}
 variable "env" {

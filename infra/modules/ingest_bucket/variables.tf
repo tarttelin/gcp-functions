@@ -1,1 +1,0 @@
-variable "destroy_buckets" {}

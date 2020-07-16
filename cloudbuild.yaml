@@ -35,3 +35,7 @@ steps:
   - name: 'gcr.io/cloud-builders/gcloud'
     dir: './build/deployable'
     args: ['functions', 'deploy', 'stream-function', '--trigger-bucket=inbound-feed-bucket', '--runtime', 'java11', '--entry-point', 'com.pyruby.cloudfunc.StreamFromBucket']
+artifacts:
+  objects:
+    location: 'gs://ons-build-artifacts/${BUILD_ID}'
+    paths: ['build/reports/tests/**/*.*']
