@@ -1,3 +1,3 @@
 project="sandpit-282515"
-destroy_buckets=false
+destroy_buckets=true
 env="ci"

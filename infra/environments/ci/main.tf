@@ -6,7 +6,7 @@ provider "google" {
 }
 
 module "build_artifacts_bucket" {
-  source = "../../modules/storage_bucket"
+  source = "../../modules/web_bucket"
   destroy_buckets = var.destroy_buckets
   name = "ons-build-artifacts"
 }
