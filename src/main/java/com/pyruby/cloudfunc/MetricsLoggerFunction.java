@@ -5,13 +5,13 @@ import com.google.cloud.functions.HttpRequest;
 import com.google.cloud.functions.HttpResponse;
 
 import java.io.BufferedWriter;
-import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 public class MetricsLoggerFunction implements HttpFunction {
 
     private final Logger logger;
 
+    @SuppressWarnings("unused")
     public MetricsLoggerFunction() {
         this(Logger.getLogger(MetricsLoggerFunction.class.getName()));
     }
