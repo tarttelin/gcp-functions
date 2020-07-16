@@ -5,6 +5,7 @@ import com.google.cloud.functions.HttpRequest;
 import com.google.cloud.functions.HttpResponse;
 
 import java.io.BufferedWriter;
+import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 public class MetricsLoggerFunction implements HttpFunction {
@@ -26,6 +27,7 @@ public class MetricsLoggerFunction implements HttpFunction {
         Long error = request.getFirstQueryParameter("error").map(Long::valueOf).orElse(0L);
         String metricLog = String.format("TRANSFORMATION_METRIC total=%s success=%s error=%s", total, success, error);
         logger.info(metricLog);
+        logger.info("{\"key\":\"value\"}");
         logger.info("I am an info log!");
         BufferedWriter writer = response.getWriter();
         writer.write("Hello World!");

@@ -4,6 +4,7 @@ import com.google.cloud.functions.HttpRequest;
 import com.google.cloud.functions.HttpResponse;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.internal.verification.VerificationModeFactory;
 
 import java.io.BufferedWriter;
 import java.io.StringWriter;
@@ -33,7 +34,7 @@ class MetricsLoggerFunctionTest {
         writer.flush();
         assertThat(out.toString()).isEqualTo("Hello World!");
 
-        verify(logger, times(2)).info(logsCaptor.capture());
+        verify(logger, VerificationModeFactory.atLeastOnce()).info(logsCaptor.capture());
         assertThat(logsCaptor.getAllValues()).contains("I am an info log!");
     }
 
@@ -53,7 +54,7 @@ class MetricsLoggerFunctionTest {
         writer.flush();
 
         ArgumentCaptor<String> logsCaptor = ArgumentCaptor.forClass(String.class);
-        verify(logger, times(2)).info(logsCaptor.capture());
+        verify(logger, VerificationModeFactory.atLeastOnce()).info(logsCaptor.capture());
         assertThat(logsCaptor.getAllValues()).contains("TRANSFORMATION_METRIC total=2 success=1 error=1");
         assertThat(logsCaptor.getAllValues()).contains("I am an info log!");
     }
@@ -74,7 +75,7 @@ class MetricsLoggerFunctionTest {
         writer.flush();
 
         ArgumentCaptor<String> logsCaptor = ArgumentCaptor.forClass(String.class);
-        verify(logger, times(2)).info(logsCaptor.capture());
+        verify(logger, VerificationModeFactory.atLeastOnce()).info(logsCaptor.capture());
         assertThat(logsCaptor.getAllValues()).contains("TRANSFORMATION_METRIC total=0 success=0 error=0");
         assertThat(logsCaptor.getAllValues()).contains("I am an info log!");
     }
