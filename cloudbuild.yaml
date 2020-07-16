@@ -38,4 +38,4 @@ steps:
 artifacts:
   objects:
     location: 'gs://ons-build-artifacts/${BUILD_ID}'
-    paths: ['build/reports/tests/**/*.*','build/reports/tests/test/**/*.*]
+    paths: ['build/reports/tests/**/*.*','build/reports/tests/test/**/*.*']
