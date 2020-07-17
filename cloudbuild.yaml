@@ -1,8 +1,27 @@
 steps:
-  - name: 'gradle:6.5.1-jdk11'
-    entrypoint: gradle
-    args: ['clean', 'build', 'deployable']
+  - id: 'build'
+    name: 'gradle:6.5.1-jdk11'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        gradle clean build
+        retval=$?
+        if [ $retval -ne 0 ]; then
+          touch build_failed
+        fi
     dir: '.'
+  - id: 'save test results'
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:alpine'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        cd build/reports/tests
+        gsutil cp -r test gs://ons-build-artifacts/results/$BUILD_ID
+        cd ../../..
+        if [ -f "build_failed" ]; then rm build_failed; exit 1; fi
+
   - id: 'tf init'
     name: 'hashicorp/terraform:0.12.28'
     entrypoint: 'sh'
@@ -35,7 +54,3 @@ steps:
   - name: 'gcr.io/cloud-builders/gcloud'
     dir: './build/deployable'
     args: ['functions', 'deploy', 'stream-function', '--trigger-bucket=inbound-feed-bucket', '--runtime', 'java11', '--entry-point', 'com.pyruby.cloudfunc.StreamFromBucket']
-artifacts:
-  objects:
-    location: 'gs://ons-build-artifacts/${BUILD_ID}'
-    paths: ['build/reports/tests/test']
