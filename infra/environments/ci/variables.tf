@@ -6,3 +6,4 @@ variable "env" {
 variable "region" {
   default = "europe-west2"
 }
+variable "github_org" {}

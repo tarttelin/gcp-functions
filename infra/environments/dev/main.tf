@@ -32,3 +32,9 @@ module "streaming_error_queue" {
   name = "streaming-errors-topic"
   region = var.region
 }
+
+module "static_ip" {
+  source = "../../modules/static_ip"
+  region = var.region
+  project = var.project
+}
